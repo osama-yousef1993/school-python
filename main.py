@@ -1,4 +1,5 @@
 import argparse
+import sys
 
 from src.courses.courses import Courses
 from src.marks.marks import Marks
@@ -16,7 +17,9 @@ def main():
     args = parser.parse_args()
     print(f"{args} this is you arge")
     print(f"{school_name} Management System")
-    select_option()
+    while x := select_option() :
+        if x =="4":
+            sys.exit(0)
 
 
 def select_option():
@@ -120,7 +123,7 @@ def select_option():
             marks = marks_manager.get_marks()
             for mark in marks:
                 print(
-                    f"Student ID: {mark['student_id']}, Course Name: {mark['course_name']}, Mark: {mark['mark']}"
+                    f"Student ID: {mark['student_id']}, Course Name: {mark['course_name']}"
                 )
         print("Marks Management Selected")
         # Add further marks management logic here
