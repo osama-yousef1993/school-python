@@ -8,7 +8,8 @@ class FileChecker:
     def file_exists(self):
         check = os.path.isfile(self.file_path)
         if not check:
-            os.mkdir(os.path.dirname(self.file_path), exist_ok=True)
+            if os.path.exists(self.file_path):
+                os.mkdir(os.path.dirname(self.file_path))
             with open(self.file_path, "w") as file:
                 file.write("[]")
         return check

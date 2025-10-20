@@ -1,8 +1,13 @@
 import argparse
-
+import sys
+import re
+import datetime
 from src.courses.courses import Courses
 from src.marks.marks import Marks
 from src.student.student import Student
+
+def sanatizeInput(s):
+    return re.sub(r"\s+", " ", re.sub(r"[^a-zA-Z\s]", "", s)).strip()
 
 
 def main():
@@ -16,7 +21,9 @@ def main():
     args = parser.parse_args()
     print(f"{args} this is you arge")
     print(f"{school_name} Management System")
-    select_option()
+    while x := select_option() :
+        if x =="4":
+            sys.exit(0)
 
 
 def select_option():
@@ -37,7 +44,7 @@ def select_option():
         student_choice = input("Enter your choice (1-4): ")
         if student_choice == "1":
             student_id = input("Enter Student ID: ")
-            student_name = input("Enter Student Name: ")
+            student_name = sanatizeInput(input("Enter Student Name: "))
             student_data = {"id": student_id, "name": student_name}
             try:
                 student_manager.add_student(student_data)
@@ -66,15 +73,15 @@ def select_option():
         print("4. Exit")
         course_choice = input("Enter your choice (1-4): ")
         if course_choice == "1":
-            course_name = input("Enter Course Name: ")
-            course_data = {"name": course_name}
+            course_name = sanatizeInput(input("Enter Course Name: "))
+            course_data = {"name": course_name, "number" : 0 , "start date": str(datetime.datetime.now().date()),"end date":""}
             try:
                 course_manager.add_courses(course_data)
                 print("Course added successfully.")
             except ValueError as e:
                 print(e)
         elif course_choice == "2":
-            course_name = input("Enter Course Name to delete: ")
+            course_name = sanatizeInput(input("Enter Course Name to delete: "))
             try:
                 course_manager.delete_course(course_name)
                 print("Course deleted successfully.")
@@ -96,7 +103,7 @@ def select_option():
         marks_choice = input("Enter your choice (1-4): ")
         if marks_choice == "1":
             student_id = input("Enter Student ID: ")
-            course_name = input("Enter Course Name: ")
+            course_name = sanatizeInput(input("Enter Course Name: "))
             mark_value = input("Enter Mark: ")
             mark_data = {
                 "student_id": student_id,
@@ -110,7 +117,7 @@ def select_option():
                 print(e)
         elif marks_choice == "2":
             student_id = input("Enter Student ID to delete mark: ")
-            course_name = input("Enter Course Name to delete mark: ")
+            course_name = sanatizeInput(input("Enter Course Name to delete mark: "))
             try:
                 marks_manager.delete_mark(student_id, course_name)
                 print("Mark deleted successfully.")
@@ -118,10 +125,7 @@ def select_option():
                 print(e)
         elif marks_choice == "3":
             marks = marks_manager.get_marks()
-            for mark in marks:
-                print(
-                    f"Student ID: {mark['student_id']}, Course Name: {mark['course_name']}, Mark: {mark['mark']}"
-                )
+            print(marks)
         print("Marks Management Selected")
         # Add further marks management logic here
     return choice

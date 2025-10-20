@@ -1,3 +1,4 @@
+import datetime
 from src.helpers.check_files import FileChecker
 from src.helpers.file_helpers import FileHelper
 
@@ -29,6 +30,15 @@ class Courses:
         for i, course in enumerate(courses):
             if course["name"] == course_name:
                 del courses[i]
+                self.file_helper.write_file(self.file_name, courses)
+                return
+    def update_course(self,course_name):
+        courses =self.courses
+        for course in courses:
+            if course_name == course["name"] and course["number"] < 30:
+                course["number"] += 1
+                if course["number"] == 30:
+                    course["end date"] = str(datetime.datetime.now().date())
                 self.file_helper.write_file(self.file_name, courses)
                 return
 
