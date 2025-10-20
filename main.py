@@ -16,7 +16,10 @@ def main():
     args = parser.parse_args()
     print(f"{args} this is you arge")
     print(f"{school_name} Management System")
-    select_option()
+
+    option = None
+    while option != "4":
+        option = select_option()
 
 
 def select_option():
@@ -55,6 +58,10 @@ def select_option():
             students = student_manager.get_students()
             for student in students:
                 print(f"ID: {student['id']}, Name: {student['name']}")
+        elif student_choice == "4":
+            pass
+        else:
+            print('Inavlid choice.')
         print("Student Management Selected")
         # Add further student management logic here
     elif choice == "2":
@@ -124,6 +131,10 @@ def select_option():
                 )
         print("Marks Management Selected")
         # Add further marks management logic here
+    elif choice == "4":
+        pass
+    else:
+        print("Inavalid choice, Try again!")
     return choice
 
 
