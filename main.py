@@ -31,6 +31,7 @@ def select_option():
 
     choice = input("Enter your choice (1-4): ")
     if choice == "1":
+        print("Student Management Selected")
         student_manager = Student()
         print("Select an option for Student:")
         print("1. Add Student")
@@ -59,12 +60,13 @@ def select_option():
             for student in students:
                 print(f"ID: {student['id']}, Name: {student['name']}")
         elif student_choice == "4":
-            pass
+            print("Exited successfully\n")
         else:
-            print('Inavlid choice.')
-        print("Student Management Selected")
+            print('Inavlid choice.\n')
+    
         # Add further student management logic here
     elif choice == "2":
+        print("Course Management Selected")
         course_manager = Courses()
         print("Select an option for Course:")
         print("1. Add Course")
@@ -91,9 +93,13 @@ def select_option():
             courses = course_manager.get_courses()
             for course in courses:
                 print(f"Course Name: {course['name']}")
-        print("Course Management Selected")
+        elif course_choice == "4":
+            print("Exited successfully\n")
+        else:
+            print('Inavlid choice.\n')
         # Add further course management logic here
     elif choice == "3":
+        print("Marks Management Selected")
         marks_manager = Marks()
         print("Select an option for Marks:")
         print("1. Add Marks")
@@ -129,12 +135,17 @@ def select_option():
                 print(
                     f"Student ID: {mark['student_id']}, Course Name: {mark['course_name']}, Mark: {mark['mark']}"
                 )
-        print("Marks Management Selected")
+        elif marks_choice == "4":
+            print("Exited successfully\n")
+        else:
+            print('Inavlid choice.\n')
+        
+        
         # Add further marks management logic here
     elif choice == "4":
-        pass
+        print("Exited successfully\n")
     else:
-        print("Inavalid choice, Try again!")
+        print("Inavalid choice\n")
     return choice
 
 
