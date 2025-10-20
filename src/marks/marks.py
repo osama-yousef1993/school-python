@@ -27,8 +27,9 @@ class Marks:
                 if mark["student_id"] == student["id"]:
                     if any(c["name"] == mark["course_name"] for c in courses):
                         student_courses.append(
-                            {"course_name": mark["course_name"], "mark": mark["mark"]}
+                            {"course_name": mark["course_name"], "mark": "pass" if int(mark["mark"])>50 else "fail" }
                         )
+
             result.append(
                 {
                     "student_id": student["id"],
@@ -61,6 +62,7 @@ class Marks:
                 raise ValueError("Mark already exists")
 
         marks.append(mark_data)
+        course_manager.update_course(mark_data["course_name"])
         self.file_helper.write_file(self.file_name, marks)
 
     def delete_mark(self, student_id, course_name):
